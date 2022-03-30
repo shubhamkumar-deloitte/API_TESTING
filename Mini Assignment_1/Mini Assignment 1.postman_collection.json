@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "99741693-6bca-4959-9d53-52ebcfe40510",
+		"name": "Mini Assignment 1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test-1 Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var users =JSON.parse(responseBody);\r",
+							"//checking the http code\r",
+							"pm.test(\"returns the expected status code\",()=>{\r",
+							"    const expectedStatusCodes=[200,201];\r",
+							"    pm.expect(pm.response.code).to.be.oneOf(\r",
+							"        expectedStatusCodes,\r",
+							"        `expected response status to be one of ${expectedStatusCodes} but got ${pm.response.code}.`\r",
+							"    )\r",
+							"})\r",
+							"//to check response time\r",
+							"pm.test(\"got respond within the expected timelimt\",()=>{\r",
+							"    const expectedTime=400;\r",
+							"    pm.expect(pm.response.responseTime).to.be.lessThan(\r",
+							"        expectedTime,\r",
+							"        `The api did not respond well within ${expectedTime}ms. Resonse came in ${pm.response.responseTime}ms.`\r",
+							"    );\r",
+							"});\r",
+							"//content type\r",
+							"pm.test(\"tocheck the content type\",()=>{\r",
+							"    pm.response.to.have.header('content-type');\r",
+							"    pm.expect(pm.response.headers.get('content-type')).match(/json/i);\r",
+							"})\r",
+							"users.forEach(function (user){\r",
+							"    user.title\r",
+							"    if(user.id==40){\r",
+							"        tests[\"verifyig userId\"]=user.userId==4;\r",
+							"    }\r",
+							"    if(user){\r",
+							"        tests[\"verifying each user has title\"]=user.title!=null;\r",
+							"        //typeof user.title === 'strin';\r",
+							"        tests[\"verifyig type of title\"]=typeof user.title==='string';\r",
+							"    }\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test-2 Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"//checking the http code\r",
+							"pm.test(\"returns the expected status code\",()=>{\r",
+							"    const expectedStatusCodes=[200,201];\r",
+							"    pm.expect(pm.response.code).to.be.oneOf(\r",
+							"        expectedStatusCodes,\r",
+							"        `expected response status to be one of ${expectedStatusCodes} but got ${pm.response.code}.`\r",
+							"    )\r",
+							"})\r",
+							"\r",
+							"//to check response time\r",
+							"pm.test(\"got respond within the expected timelimt\",()=>{\r",
+							"    const expectedTime=400;\r",
+							"    pm.expect(pm.response.responseTime).to.be.lessThan(\r",
+							"        expectedTime,\r",
+							"        `The api did not respond well within ${expectedTime}ms. Resonse came in ${pm.response.responseTime}ms.`\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"var users=JSON.parse(responseBody);\r",
+							"\r",
+							"// users.forEach(function (user){\r",
+							"   \r",
+							"   \r",
+							"//     if(user){\r",
+							"//         tests[\"verifying each user has name\"]=user.name!=null;\r",
+							"//         //typeof user.title === 'strin';\r",
+							"//         tests[\"verifying each user has job\"]=user.job!=null;\r",
+							"//         // tests[\"verifying each user has id\"]=user.id!=null;\r",
+							"//         // tests[\"verifying each user has createdAt\"]=user.createdAt!=null;\r",
+							"//     }\r",
+							"// })\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n   {\r\n       \"name\":\"{{NAME}}\",\r\n       \"job\":\"{{JOB}}\"\r\n   }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test-3 PUT",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users/1",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test-4 Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var users=JSON.parse(responseBody);\r",
+							"\r",
+							"var size = Object.keys(users).length;\r",
+							"\r",
+							"tests[\"verifying the deletion\"]=size==0;\r",
+							"\r",
+							"//checking the http code\r",
+							"pm.test(\"returns the expected status code\",()=>{\r",
+							"    const expectedStatusCodes=[200,201];\r",
+							"    pm.expect(pm.response.code).to.be.oneOf(\r",
+							"        expectedStatusCodes,\r",
+							"        `expected response status to be one of ${expectedStatusCodes} but got ${pm.response.code}.`\r",
+							"    )\r",
+							"})\r",
+							"//to check response time\r",
+							"pm.test(\"got respond within the expected timelimt\",()=>{\r",
+							"    const expectedTime=400;\r",
+							"    pm.expect(pm.response.responseTime).to.be.lessThan(\r",
+							"        expectedTime,\r",
+							"        `The api did not respond well within ${expectedTime}ms. Resonse came in ${pm.response.responseTime}ms.`\r",
+							"    );\r",
+							"});\r",
+							"//content type\r",
+							"pm.test(\"tocheck the content type\",()=>{\r",
+							"    pm.response.to.have.header('content-type');\r",
+							"    pm.expect(pm.response.headers.get('content-type')).match(/json/i);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
