@@ -106,7 +106,11 @@
 							"    );\r",
 							"});\r",
 							"\r",
-							"\r",
+							"//content type\r",
+							"pm.test(\"tocheck the content type\",()=>{\r",
+							"    pm.response.to.have.header('content-type');\r",
+							"    pm.expect(pm.response.headers.get('content-type')).match(/json/i);\r",
+							"})\r",
 							"\r",
 							"\r",
 							"\r",
@@ -124,7 +128,9 @@
 							"//         // tests[\"verifying each user has createdAt\"]=user.createdAt!=null;\r",
 							"//     }\r",
 							"// })\r",
-							""
+							"for (var user in users){\r",
+							"    tests[\"verifying new user posted\"]= users[user]!=null;\r",
+							"}"
 						],
 						"type": "text/javascript"
 					}
@@ -143,15 +149,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://reqres.in/api/users",
-					"protocol": "https",
+					"raw": "{{url}}",
 					"host": [
-						"reqres",
-						"in"
-					],
-					"path": [
-						"api",
-						"users"
+						"{{url}}"
 					]
 				}
 			},
@@ -159,15 +159,68 @@
 		},
 		{
 			"name": "Test-3 PUT",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = JSON.parse(responseBody);\r",
+							"\r",
+							"for (var i in response) {\r",
+							"\r",
+							"    //console.log(i);\r",
+							"    if (i === \"name\") {\r",
+							"        tests[\"verifying the name\"] = response[i] === \"shubham\";\r",
+							"\r",
+							"    }\r",
+							"    if (i === \"job\") {\r",
+							"        tests[\"verifying the job\"] = response[i] === \"sdet\";\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"//content type\r",
+							"pm.test(\"tocheck the content type\",()=>{\r",
+							"    pm.response.to.have.header('content-type');\r",
+							"    pm.expect(pm.response.headers.get('content-type')).match(/json/i);\r",
+							"})\r",
+							"//checking the http code\r",
+							"pm.test(\"returns the expected status code\",()=>{\r",
+							"    const expectedStatusCodes=[200,201];\r",
+							"    pm.expect(pm.response.code).to.be.oneOf(\r",
+							"        expectedStatusCodes,\r",
+							"        `expected response status to be one of ${expectedStatusCodes} but got ${pm.response.code}.`\r",
+							"    )\r",
+							"})\r",
+							"//to check response time\r",
+							"pm.test(\"got respond within the expected timelimt\",()=>{\r",
+							"    const expectedTime=400;\r",
+							"    pm.expect(pm.response.responseTime).to.be.lessThan(\r",
+							"        expectedTime,\r",
+							"        `The api did not respond well within ${expectedTime}ms. Resonse came in ${pm.response.responseTime}ms.`\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "GET",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n    \"name\":\"{{NAME}}\",\r\n    \"job\":\"{{JOB}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -175,16 +228,12 @@
 					}
 				},
 				"url": {
-					"raw": "https://reqres.in/api/users/1",
-					"protocol": "https",
+					"raw": "{{url}}/",
 					"host": [
-						"reqres",
-						"in"
+						"{{url}}"
 					],
 					"path": [
-						"api",
-						"users",
-						"1"
+						""
 					]
 				}
 			},
